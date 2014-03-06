@@ -5,6 +5,13 @@
 VARIANT=${VARIANT:-eng}
 LUNCH=${LUNCH:-full_${DEVICE}-${VARIANT}}
 
+# Enable profiling by default on engineering builds
+# See bug 979947
+if [ "$VARIANT" == "eng" ] && [ -z $MOZ_PROFILER ]
+then
+  export MOZ_PROFILING=1
+fi
+
 export USE_CCACHE=yes &&
 export GECKO_PATH &&
 export GAIA_PATH &&
